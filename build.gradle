@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile group: 'javax', name: 'javaee-api', version: '6.0'
+    providedCompile 'javax.servlet:servlet-api:2.5'
+    compile 'org.springframework:spring-webmvc:3.2.15.RELEASE'
+    compile 'org.springframework:spring-context:3.2.15.RELEASE'
+    compile 'org.springframework:spring-jdbc:3.2.15.RELEASE'
+    compile 'javax.servlet:jstl:1.2'
+    compile 'org.springframework:spring-jdbc:3.2.15.RELEASE'
+    compile 'mysql:mysql-connector-java:5.1.34'
+    compile 'org.hibernate:hibernate-validator:4.2.0.Final'
+}
+//war {
+//    // webAppDirName = 'src/main/webapps/WEB-INF'
+//    // webXml = file('src/main/webapps/WEB-INF/web.xml') // copies a file to WEB-INF/web.xml
+//}
+
+//version = 414.0
+
+task deploy(dependsOn: war) {
+    copy {
+        from 'build/libs'
+        into '/home/rafsan.jani/Tomcat8/apache-tomcat-8.0.28/webapps'
+        include "*.war"
+    }
+}
+
